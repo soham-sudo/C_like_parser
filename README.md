@@ -33,7 +33,7 @@ The program can be run in two ways:
 
 2. **With a specified file**:
    ```bash
-   ./compiler sample_error.txt
+   ./compiler sample_test.txt
    ```
 
 Two sample files are provided:
