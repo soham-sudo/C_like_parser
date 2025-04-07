@@ -1,0 +1,41 @@
+// Sample program with lexical errors
+int main() {
+    // Variable declarations with initialization
+    int counter = 10;
+    float sum = 0.0;
+    
+    /* This is a multi-line comment
+       demonstrating the while loop feature */
+    while (counter > 0) {
+        // Arithmetic expression assignment
+        sum = sum + counter;
+        
+        // Decrement of loop index
+        counter--
+    }
+    
+    // ERROR: Invalid character in identifier
+    int @invalid_var = 42;
+    
+    // ERROR: Identifier starting with a number
+    float 123abc = 3.14;
+    
+    // ERROR: Invalid float literal (multiple decimal points)
+    float pi = 3.14.15;
+    
+    // ERROR: Unclosed multi-line comment
+    /* This comment will cause an error
+    
+    // ERROR: Invalid operator
+    int x = 5 $ 3;
+    
+    // ERROR: Missing semicolon
+    int y = 10
+    
+    // Valid declarations and statements
+    int a = 5;
+    int b = 3;
+    
+    // ERROR: Invalid character in expression
+    a = a + b@c;
+} 

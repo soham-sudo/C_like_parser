@@ -1,0 +1,23 @@
+int main() {
+    int count = 0;
+    float pi = 3.14159;
+    float radius = 5.0;
+    float area = 0.0;
+    
+    while (count < 5) {
+        int temp = count;
+        
+        area = pi * radius * radius;
+        radius = radius - 0.5;
+        
+        area = area + (pi * temp) / 2;
+        
+        count++;
+        temp--;
+    }
+    
+    int i = 10;
+    while (i > 0) {
+        i--;
+    }
+} 

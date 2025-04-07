@@ -1,0 +1,13 @@
+Token Type,Lexeme,Line,Column
+INT,"int",1,1
+MAIN,"main",1,5
+LEFT_PAREN,"(",1,9
+RIGHT_PAREN,")",1,10
+LEFT_BRACE,"{",1,11
+INT,"int",2,5
+IDENTIFIER,"x",2,9
+ASSIGN,"=",2,11
+INTEGER_LITERAL,"5",2,13
+SEMICOLON,";",2,14
+RIGHT_BRACE,"}",3,1
+END_OF_FILE,"",3,3

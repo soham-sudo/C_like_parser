@@ -1,0 +1,29 @@
+| Stack Contents | Current Input | Production Used | Action |
+|---------------|---------------|-----------------|--------|
+| $ program | int |  | Initial stack setup |
+| $ } stmts { ) ( main int | int | program → int main ( ) { stmts }  | Expand non-terminal |
+| $ } stmts { ) ( main | int |  | Match: int |
+| $ } stmts { ) ( | main |  | Match: main |
+| $ } stmts { ) | ( |  | Match: ( |
+| $ } stmts { | ) |  | Match: ) |
+| $ } stmts | { |  | Match: { |
+| $ } stmts stmt | int | stmts → stmt stmts  | Expand non-terminal |
+| $ } stmts decl | int | stmt → decl  | Expand non-terminal |
+| $ } stmts ; id_list type | int | decl → type id_list ;  | Expand non-terminal |
+| $ } stmts ; id_list int | int | type → int  | Expand non-terminal |
+| $ } stmts ; id_list | int |  | Match: int |
+| $ } stmts ; id_tail init_opt ID | ID | id_list → ID init_opt id_tail  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt | ID |  | Match: ID |
+| $ } stmts ; id_tail expr = | = | init_opt → = expr  | Expand non-terminal |
+| $ } stmts ; id_tail expr | = |  | Match: = |
+| $ } stmts ; id_tail expr_tail term | CONST | expr → term expr_tail  | Expand non-terminal |
+| $ } stmts ; id_tail expr_tail term_tail factor | CONST | term → factor term_tail  | Expand non-terminal |
+| $ } stmts ; id_tail expr_tail term_tail CONST | CONST | factor → CONST  | Expand non-terminal |
+| $ } stmts ; id_tail expr_tail term_tail | CONST |  | Match: CONST |
+| $ } stmts ; id_tail expr_tail | ; | term_tail → ε  | Expand non-terminal |
+| $ } stmts ; id_tail | ; | expr_tail → ε  | Expand non-terminal |
+| $ } stmts ; | ; | id_tail → ε  | Expand non-terminal |
+| $ } stmts | ; |  | Match: ; |
+| $ } | } | stmts → ε  | Expand non-terminal |
+| $ | } |  | Match: } |
+| $ | $ |  | Accepted |

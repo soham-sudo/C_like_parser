@@ -1,0 +1,19 @@
+int main() {
+    int counter = 10;
+    float sum = 0.0;
+
+    int @invalid_var = 42;
+
+    float 123abc = 3.14;
+
+    float pi = 3.14.15;
+    
+    int x = 5 $ 3;
+
+    int y = 10
+    
+    int a = 5;
+    int b = 3;
+    
+    a = a + b@c;
+} 

@@ -1,0 +1,7 @@
+int main() {
+    float y = 3.14;
+    int count = 0;
+    while (count < 10) {
+        count = count + 1;
+    }
+} 

@@ -1,0 +1,45 @@
+=== FIRST SETS ===
+FIRST(program) = { int }
+FIRST(stmts) = { ++, --, ID, float, int, while, ε }
+FIRST(stmt) = { ++, --, ID, float, int, while }
+FIRST(decl) = { float, int }
+FIRST(type) = { float, int }
+FIRST(id_list) = { ID }
+FIRST(id_tail) = { ,, ε }
+FIRST(init_opt) = { =, ε }
+FIRST(while_stmt) = { while }
+FIRST(expr_stmt) = { ++, --, ID }
+FIRST(expr_stmt_tail) = { ++, --, = }
+FIRST(expr) = { (, CONST, ID }
+FIRST(expr_tail) = { +, -, ε }
+FIRST(term) = { (, CONST, ID }
+FIRST(term_tail) = { *, /, ε }
+FIRST(factor) = { (, CONST, ID }
+FIRST(unary_op) = { ++, -- }
+FIRST(cond) = { (, CONST, ID }
+FIRST(rel_op) = { <, > }
+FIRST(add_op) = { +, - }
+FIRST(mul_op) = { *, / }
+
+=== FOLLOW SETS ===
+FOLLOW(program) = { $ }
+FOLLOW(stmts) = { } }
+FOLLOW(stmt) = { ++, --, ID, float, int, while, } }
+FOLLOW(decl) = { ++, --, ID, float, int, while, } }
+FOLLOW(type) = { ID }
+FOLLOW(id_list) = { ; }
+FOLLOW(id_tail) = { ; }
+FOLLOW(init_opt) = { ,, ; }
+FOLLOW(while_stmt) = { ++, --, ID, float, int, while, } }
+FOLLOW(expr_stmt) = { ++, --, ID, float, int, while, } }
+FOLLOW(expr_stmt_tail) = { ++, --, ID, float, int, while, } }
+FOLLOW(expr) = { ), ,, ;, <, > }
+FOLLOW(expr_tail) = { ), ,, ;, <, > }
+FOLLOW(term) = { ), +, ,, -, ;, <, > }
+FOLLOW(term_tail) = { ), +, ,, -, ;, <, > }
+FOLLOW(factor) = { ), *, +, ,, -, /, ;, <, > }
+FOLLOW(unary_op) = { ID }
+FOLLOW(cond) = { ) }
+FOLLOW(rel_op) = { (, CONST, ID }
+FOLLOW(add_op) = { (, CONST, ID }
+FOLLOW(mul_op) = { (, CONST, ID }

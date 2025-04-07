@@ -1,0 +1,27 @@
+# Build artifacts
+*.o
+*.obj
+*.exe
+*.out
+*.app
+compiler
+
+# Dependency files
+*.d
+
+# Editor and OS specific files
+.vscode/
+.vs/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+
+# Generated files
+*.lex.cpp
+*.tab.cpp
+*.tab.h 

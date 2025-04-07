@@ -1,0 +1,42 @@
+// Program structure
+program → 'int main() {' declarations statements '}'
+
+// Declarations
+declarations → declaration declarations | ε
+declaration → dataType idList ';'
+idList → idInit | idInit ',' idList
+idInit → ID | ID '=' expression
+dataType → 'int' | 'float'
+
+// Statements
+statements → statement statements | ε
+statement → whileStmt | assignStmt | declaration
+
+// While loop
+whileStmt → 'while' '(' condition ')' '{' statements '}'
+
+// Condition
+condition → expression relOp expression
+relOp → '<' | '>'
+
+// Assignment statement
+assignStmt → ID '=' expression ';' | unaryStmt
+unaryStmt → ID unaryOp ';' | unaryOp ID ';'
+unaryOp → '++' | '--'
+
+// Expressions
+expression → term addExpr
+addExpr → addOp term addExpr | ε
+term → factor mulExpr
+mulExpr → mulOp factor mulExpr | ε
+factor → ID | CONST | '(' expression ')'
+
+// Operators
+addOp → '+' | '-'
+mulOp → '*' | '/'
+
+// Terminals
+ID → [a-zA-Z][a-zA-Z0-9]*
+CONST → intConst | floatConst
+intConst → [0-9]+
+floatConst → [0-9]+\.[0-9]+

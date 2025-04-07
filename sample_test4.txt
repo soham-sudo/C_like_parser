@@ -1,0 +1,19 @@
+int main() {
+    int a, b, c;
+    a = 5;
+    b = 10;
+    c = a + b;
+    
+    float x, y, z;
+    x = 3.14;
+    y = 2.71;
+    z = x * y;
+    
+    int i = 0;
+    while (i < 5) {
+        int j, k;
+        j = i * 2;
+        k = j + 1;
+        i++;
+    }
+} 
