@@ -45,7 +45,7 @@ The program can be run in two ways:
    *Complete demonstration of the compiler pipeline*
 
 2. **Error Handling**
-   [![Error Handling](assets/error_handling_thumbnail.png)](assets/error_handling_demo.mp4)
+   [![Error Handling](assets/sample_test2_run.mp4)]
    *Demonstration of error detection and recovery*
 
 ## Test Files
