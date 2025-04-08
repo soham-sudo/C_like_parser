@@ -41,7 +41,7 @@ The program can be run in two ways:
 ### Video Demonstrations
 
 1. **Full Compilation Process**
-   [![Compilation Process](assets/compilation_process_thumbnail.png)](assets/sample_test2 run.mp4)
+   [![Compilation Process](assets/sample_test2 run.mp4)](assets/sample_test2 run.mp4)
    *Complete demonstration of the compiler pipeline*
 
 2. **Error Handling**
