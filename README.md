@@ -33,7 +33,7 @@ The program can be run in two ways:
 
 2. **With a specified file**:
    ```bash
-   ./compiler sample_error.txt
+   ./compiler sample_test.txt
    ```
 
 ## Visual Demonstrations
@@ -116,6 +116,7 @@ The parser includes panic mode error recovery to continue after errors.
 - `error_handler.h/cpp`: Error reporting and logging
 - `grammar.h/cpp`: Grammar definition and FIRST/FOLLOW set computation
 - `parser.h/cpp`: LL(1) parser implementation
+<<<<<<< HEAD
 - `main.cpp`: Driver program
 
 ## Documentation
@@ -139,3 +140,6 @@ The implemented language supports:
 - Relational operators (< and >)
 
 See `language_syntax.md` for detailed examples. 
+=======
+- `main.cpp`: Driver program 
+>>>>>>> adfd20dafa40729dc49861fd8ec31e97ce4acc87
