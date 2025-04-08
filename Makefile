@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra
-LDFLAGS = 
+LDFLAGS = -lstdc++fs
 
 SRCS = main.cpp lexer.cpp symbol_table.cpp error_handler.cpp grammar.cpp parser.cpp
 OBJS = $(SRCS:.cpp=.o)
@@ -11,7 +11,7 @@ TARGET = compiler
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CXX) $(LDFLAGS) -o $@ $^
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<

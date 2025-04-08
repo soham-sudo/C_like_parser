@@ -9,7 +9,8 @@ Parser::Parser(std::shared_ptr<LexicalAnalyzer> lex,
                std::shared_ptr<SymbolTable> symTab,
                std::shared_ptr<ErrorHandler> errHandler, 
                std::shared_ptr<Grammar> gram)
-    : lexer(lex), symbolTable(symTab), errorHandler(errHandler), grammar(gram) {
+    : lexer(lex), symbolTable(symTab), errorHandler(errHandler), grammar(gram),
+      isInDeclaration(false) {
     
     // Create output directory if it doesn't exist
     #ifdef _WIN32
@@ -37,6 +38,22 @@ Parser::Parser(std::shared_ptr<LexicalAnalyzer> lex,
     // Setup parsing stages file header
     parsingStagesFile << "| Stack Contents | Current Input | Production Used | Action |\n";
     parsingStagesFile << "|---------------|---------------|-----------------|--------|\n";
+}
+
+// Handle identifier tokens based on context
+void Parser::handleIdentifier(const Token& token) {
+    if (isInDeclaration) {
+        // Only insert into symbol table if this is a declaration
+        symbolTable->insert(token.lexeme, token.line, token.column);
+    } else {
+        // For references, check if the variable exists
+        if (!symbolTable->exists(token.lexeme)) {
+            if (errorHandler) {
+                errorHandler->semanticError("Use of undeclared variable '" + token.lexeme + "'",
+                                         token.line, token.column);
+            }
+        }
+    }
 }
 
 // Parse the input
@@ -71,7 +88,21 @@ bool Parser::parse() {
         if (!isNonTerminal(top)) {
             std::string tokenStr = tokenToString(currentToken);
             
+            // Track when we enter a declaration
+            if (top == "int" || top == "float") {
+                isInDeclaration = true;
+            }
+            // Track when we exit a declaration
+            else if (top == ";") {
+                isInDeclaration = false;
+            }
+            
             if (top == tokenStr) {
+                // If this is an identifier token, handle it appropriately
+                if (currentToken.type == TokenType::IDENTIFIER) {
+                    handleIdentifier(currentToken);
+                }
+                
                 writeParsingStage(stackToString(parseStack), tokenStr, "", "Match: " + top);
                 advance();
                 continue;

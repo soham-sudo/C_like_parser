@@ -1,8 +1,0 @@
-Lexical Error at line 5, column 9: Invalid token: '@'
-Lexical Error at line 7, column 11: Invalid token: '1'
-Lexical Error at line 7, column 12: Invalid token: '2'
-Lexical Error at line 7, column 13: Invalid token: '3'
-Lexical Error at line 9, column 20: Invalid token: '.'
-Lexical Error at line 11, column 15: Invalid token: '$'
-Lexical Error at line 18, column 14: Invalid token: '@'
-Syntax Error at line 5, column 9: Syntax error: unexpected token '@' for non-terminal 'id_list'

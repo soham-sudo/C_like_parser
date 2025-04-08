@@ -177,16 +177,13 @@ void Grammar::initializeGrammar() {
     addProduction("stmt", {"while_stmt"});
     
     // Declaration
-    addProduction("decl", {"type", "id_list", ";"});
+    addProduction("decl", {"type", "ID", "init_opt", "id_tail", ";"});
     
     // Type
     addProduction("type", {"int"});
     addProduction("type", {"float"});
     
-    // Identifier list
-    addProduction("id_list", {"ID", "init_opt", "id_tail"});
-    
-    // Identifier list tail
+    // Identifier list tail (for multiple declarations)
     addProduction("id_tail", {",", "ID", "init_opt", "id_tail"});
     addProduction("id_tail", {"ε"});
     

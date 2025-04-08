@@ -9,27 +9,133 @@
 | $ } stmts | { |  | Match: { |
 | $ } stmts stmt | int | stmts → stmt stmts  | Expand non-terminal |
 | $ } stmts decl | int | stmt → decl  | Expand non-terminal |
-| $ } stmts ; id_list type | int | decl → type id_list ;  | Expand non-terminal |
-| $ } stmts ; id_list int | int | type → int  | Expand non-terminal |
-| $ } stmts ; id_list | int |  | Match: int |
-| $ } stmts ; id_tail init_opt ID | ID | id_list → ID init_opt id_tail  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID type | int | decl → type ID init_opt id_tail ;  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID int | int | type → int  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID | int |  | Match: int |
 | $ } stmts ; id_tail init_opt | ID |  | Match: ID |
-| $ } stmts ; id_tail expr = | = | init_opt → = expr  | Expand non-terminal |
-| $ } stmts ; id_tail expr | = |  | Match: = |
-| $ } stmts ; id_tail expr_tail term | CONST | expr → term expr_tail  | Expand non-terminal |
-| $ } stmts ; id_tail expr_tail term_tail factor | CONST | term → factor term_tail  | Expand non-terminal |
-| $ } stmts ; id_tail expr_tail term_tail CONST | CONST | factor → CONST  | Expand non-terminal |
-| $ } stmts ; id_tail expr_tail term_tail | CONST |  | Match: CONST |
-| $ } stmts ; id_tail expr_tail | ; | term_tail → ε  | Expand non-terminal |
-| $ } stmts ; id_tail | ; | expr_tail → ε  | Expand non-terminal |
+| $ } stmts ; id_tail | , | init_opt → ε  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID , | , | id_tail → , ID init_opt id_tail  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID | , |  | Match: , |
+| $ } stmts ; id_tail init_opt | ID |  | Match: ID |
+| $ } stmts ; id_tail | , | init_opt → ε  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID , | , | id_tail → , ID init_opt id_tail  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID | , |  | Match: , |
+| $ } stmts ; id_tail init_opt | ID |  | Match: ID |
+| $ } stmts ; id_tail | ; | init_opt → ε  | Expand non-terminal |
 | $ } stmts ; | ; | id_tail → ε  | Expand non-terminal |
+| $ } stmts | ; |  | Match: ; |
+| $ } stmts stmt | ID | stmts → stmt stmts  | Expand non-terminal |
+| $ } stmts expr_stmt | ID | stmt → expr_stmt  | Expand non-terminal |
+| $ } stmts expr_stmt_tail ID | ID | expr_stmt → ID expr_stmt_tail  | Expand non-terminal |
+| $ } stmts expr_stmt_tail | ID |  | Match: ID |
+| $ } stmts ; expr = | = | expr_stmt_tail → = expr ;  | Expand non-terminal |
+| $ } stmts ; expr | = |  | Match: = |
+| $ } stmts ; expr_tail term | CONST | expr → term expr_tail  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail factor | CONST | term → factor term_tail  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail CONST | CONST | factor → CONST  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail | CONST |  | Match: CONST |
+| $ } stmts ; expr_tail | ; | term_tail → ε  | Expand non-terminal |
+| $ } stmts ; | ; | expr_tail → ε  | Expand non-terminal |
+| $ } stmts | ; |  | Match: ; |
+| $ } stmts stmt | ID | stmts → stmt stmts  | Expand non-terminal |
+| $ } stmts expr_stmt | ID | stmt → expr_stmt  | Expand non-terminal |
+| $ } stmts expr_stmt_tail ID | ID | expr_stmt → ID expr_stmt_tail  | Expand non-terminal |
+| $ } stmts expr_stmt_tail | ID |  | Match: ID |
+| $ } stmts ; expr = | = | expr_stmt_tail → = expr ;  | Expand non-terminal |
+| $ } stmts ; expr | = |  | Match: = |
+| $ } stmts ; expr_tail term | CONST | expr → term expr_tail  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail factor | CONST | term → factor term_tail  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail CONST | CONST | factor → CONST  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail | CONST |  | Match: CONST |
+| $ } stmts ; expr_tail | ; | term_tail → ε  | Expand non-terminal |
+| $ } stmts ; | ; | expr_tail → ε  | Expand non-terminal |
+| $ } stmts | ; |  | Match: ; |
+| $ } stmts stmt | ID | stmts → stmt stmts  | Expand non-terminal |
+| $ } stmts expr_stmt | ID | stmt → expr_stmt  | Expand non-terminal |
+| $ } stmts expr_stmt_tail ID | ID | expr_stmt → ID expr_stmt_tail  | Expand non-terminal |
+| $ } stmts expr_stmt_tail | ID |  | Match: ID |
+| $ } stmts ; expr = | = | expr_stmt_tail → = expr ;  | Expand non-terminal |
+| $ } stmts ; expr | = |  | Match: = |
+| $ } stmts ; expr_tail term | ID | expr → term expr_tail  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail factor | ID | term → factor term_tail  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail ID | ID | factor → ID  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail | ID |  | Match: ID |
+| $ } stmts ; expr_tail | + | term_tail → ε  | Expand non-terminal |
+| $ } stmts ; expr_tail term add_op | + | expr_tail → add_op term expr_tail  | Expand non-terminal |
+| $ } stmts ; expr_tail term + | + | add_op → +  | Expand non-terminal |
+| $ } stmts ; expr_tail term | + |  | Match: + |
+| $ } stmts ; expr_tail term_tail factor | ID | term → factor term_tail  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail ID | ID | factor → ID  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail | ID |  | Match: ID |
+| $ } stmts ; expr_tail | ; | term_tail → ε  | Expand non-terminal |
+| $ } stmts ; | ; | expr_tail → ε  | Expand non-terminal |
 | $ } stmts | ; |  | Match: ; |
 | $ } stmts stmt | float | stmts → stmt stmts  | Expand non-terminal |
 | $ } stmts decl | float | stmt → decl  | Expand non-terminal |
-| $ } stmts ; id_list type | float | decl → type id_list ;  | Expand non-terminal |
-| $ } stmts ; id_list float | float | type → float  | Expand non-terminal |
-| $ } stmts ; id_list | float |  | Match: float |
-| $ } stmts ; id_tail init_opt ID | ID | id_list → ID init_opt id_tail  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID type | float | decl → type ID init_opt id_tail ;  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID float | float | type → float  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID | float |  | Match: float |
+| $ } stmts ; id_tail init_opt | ID |  | Match: ID |
+| $ } stmts ; id_tail | , | init_opt → ε  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID , | , | id_tail → , ID init_opt id_tail  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID | , |  | Match: , |
+| $ } stmts ; id_tail init_opt | ID |  | Match: ID |
+| $ } stmts ; id_tail | , | init_opt → ε  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID , | , | id_tail → , ID init_opt id_tail  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID | , |  | Match: , |
+| $ } stmts ; id_tail init_opt | ID |  | Match: ID |
+| $ } stmts ; id_tail | ; | init_opt → ε  | Expand non-terminal |
+| $ } stmts ; | ; | id_tail → ε  | Expand non-terminal |
+| $ } stmts | ; |  | Match: ; |
+| $ } stmts stmt | ID | stmts → stmt stmts  | Expand non-terminal |
+| $ } stmts expr_stmt | ID | stmt → expr_stmt  | Expand non-terminal |
+| $ } stmts expr_stmt_tail ID | ID | expr_stmt → ID expr_stmt_tail  | Expand non-terminal |
+| $ } stmts expr_stmt_tail | ID |  | Match: ID |
+| $ } stmts ; expr = | = | expr_stmt_tail → = expr ;  | Expand non-terminal |
+| $ } stmts ; expr | = |  | Match: = |
+| $ } stmts ; expr_tail term | CONST | expr → term expr_tail  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail factor | CONST | term → factor term_tail  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail CONST | CONST | factor → CONST  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail | CONST |  | Match: CONST |
+| $ } stmts ; expr_tail | ; | term_tail → ε  | Expand non-terminal |
+| $ } stmts ; | ; | expr_tail → ε  | Expand non-terminal |
+| $ } stmts | ; |  | Match: ; |
+| $ } stmts stmt | ID | stmts → stmt stmts  | Expand non-terminal |
+| $ } stmts expr_stmt | ID | stmt → expr_stmt  | Expand non-terminal |
+| $ } stmts expr_stmt_tail ID | ID | expr_stmt → ID expr_stmt_tail  | Expand non-terminal |
+| $ } stmts expr_stmt_tail | ID |  | Match: ID |
+| $ } stmts ; expr = | = | expr_stmt_tail → = expr ;  | Expand non-terminal |
+| $ } stmts ; expr | = |  | Match: = |
+| $ } stmts ; expr_tail term | CONST | expr → term expr_tail  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail factor | CONST | term → factor term_tail  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail CONST | CONST | factor → CONST  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail | CONST |  | Match: CONST |
+| $ } stmts ; expr_tail | ; | term_tail → ε  | Expand non-terminal |
+| $ } stmts ; | ; | expr_tail → ε  | Expand non-terminal |
+| $ } stmts | ; |  | Match: ; |
+| $ } stmts stmt | ID | stmts → stmt stmts  | Expand non-terminal |
+| $ } stmts expr_stmt | ID | stmt → expr_stmt  | Expand non-terminal |
+| $ } stmts expr_stmt_tail ID | ID | expr_stmt → ID expr_stmt_tail  | Expand non-terminal |
+| $ } stmts expr_stmt_tail | ID |  | Match: ID |
+| $ } stmts ; expr = | = | expr_stmt_tail → = expr ;  | Expand non-terminal |
+| $ } stmts ; expr | = |  | Match: = |
+| $ } stmts ; expr_tail term | ID | expr → term expr_tail  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail factor | ID | term → factor term_tail  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail ID | ID | factor → ID  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail | ID |  | Match: ID |
+| $ } stmts ; expr_tail term_tail factor mul_op | * | term_tail → mul_op factor term_tail  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail factor * | * | mul_op → *  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail factor | * |  | Match: * |
+| $ } stmts ; expr_tail term_tail ID | ID | factor → ID  | Expand non-terminal |
+| $ } stmts ; expr_tail term_tail | ID |  | Match: ID |
+| $ } stmts ; expr_tail | ; | term_tail → ε  | Expand non-terminal |
+| $ } stmts ; | ; | expr_tail → ε  | Expand non-terminal |
+| $ } stmts | ; |  | Match: ; |
+| $ } stmts stmt | int | stmts → stmt stmts  | Expand non-terminal |
+| $ } stmts decl | int | stmt → decl  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID type | int | decl → type ID init_opt id_tail ;  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID int | int | type → int  | Expand non-terminal |
+| $ } stmts ; id_tail init_opt ID | int |  | Match: int |
 | $ } stmts ; id_tail init_opt | ID |  | Match: ID |
 | $ } stmts ; id_tail expr = | = | init_opt → = expr  | Expand non-terminal |
 | $ } stmts ; id_tail expr | = |  | Match: = |
@@ -41,11 +147,88 @@
 | $ } stmts ; id_tail | ; | expr_tail → ε  | Expand non-terminal |
 | $ } stmts ; | ; | id_tail → ε  | Expand non-terminal |
 | $ } stmts | ; |  | Match: ; |
-| $ } stmts stmt | int | stmts → stmt stmts  | Expand non-terminal |
-| $ } stmts decl | int | stmt → decl  | Expand non-terminal |
-| $ } stmts ; id_list type | int | decl → type id_list ;  | Expand non-terminal |
-| $ } stmts ; id_list int | int | type → int  | Expand non-terminal |
-| $ } stmts ; id_list | int |  | Match: int |
-| $ } stmts ; | ERROR |  | ERROR: No matching production |
-| $ } stmts ; | ERROR |  | Panic mode: skip until ';' |
-| $ stmts | FLOAT |  | Resumed parsing |
+| $ } stmts stmt | while | stmts → stmt stmts  | Expand non-terminal |
+| $ } stmts while_stmt | while | stmt → while_stmt  | Expand non-terminal |
+| $ } stmts } stmts { ) cond ( while | while | while_stmt → while ( cond ) { stmts }  | Expand non-terminal |
+| $ } stmts } stmts { ) cond ( | while |  | Match: while |
+| $ } stmts } stmts { ) cond | ( |  | Match: ( |
+| $ } stmts } stmts { ) expr rel_op expr | ID | cond → expr rel_op expr  | Expand non-terminal |
+| $ } stmts } stmts { ) expr rel_op expr_tail term | ID | expr → term expr_tail  | Expand non-terminal |
+| $ } stmts } stmts { ) expr rel_op expr_tail term_tail factor | ID | term → factor term_tail  | Expand non-terminal |
+| $ } stmts } stmts { ) expr rel_op expr_tail term_tail ID | ID | factor → ID  | Expand non-terminal |
+| $ } stmts } stmts { ) expr rel_op expr_tail term_tail | ID |  | Match: ID |
+| $ } stmts } stmts { ) expr rel_op expr_tail | < | term_tail → ε  | Expand non-terminal |
+| $ } stmts } stmts { ) expr rel_op | < | expr_tail → ε  | Expand non-terminal |
+| $ } stmts } stmts { ) expr < | < | rel_op → <  | Expand non-terminal |
+| $ } stmts } stmts { ) expr | < |  | Match: < |
+| $ } stmts } stmts { ) expr_tail term | CONST | expr → term expr_tail  | Expand non-terminal |
+| $ } stmts } stmts { ) expr_tail term_tail factor | CONST | term → factor term_tail  | Expand non-terminal |
+| $ } stmts } stmts { ) expr_tail term_tail CONST | CONST | factor → CONST  | Expand non-terminal |
+| $ } stmts } stmts { ) expr_tail term_tail | CONST |  | Match: CONST |
+| $ } stmts } stmts { ) expr_tail | ) | term_tail → ε  | Expand non-terminal |
+| $ } stmts } stmts { ) | ) | expr_tail → ε  | Expand non-terminal |
+| $ } stmts } stmts { | ) |  | Match: ) |
+| $ } stmts } stmts | { |  | Match: { |
+| $ } stmts } stmts stmt | int | stmts → stmt stmts  | Expand non-terminal |
+| $ } stmts } stmts decl | int | stmt → decl  | Expand non-terminal |
+| $ } stmts } stmts ; id_tail init_opt ID type | int | decl → type ID init_opt id_tail ;  | Expand non-terminal |
+| $ } stmts } stmts ; id_tail init_opt ID int | int | type → int  | Expand non-terminal |
+| $ } stmts } stmts ; id_tail init_opt ID | int |  | Match: int |
+| $ } stmts } stmts ; id_tail init_opt | ID |  | Match: ID |
+| $ } stmts } stmts ; id_tail | , | init_opt → ε  | Expand non-terminal |
+| $ } stmts } stmts ; id_tail init_opt ID , | , | id_tail → , ID init_opt id_tail  | Expand non-terminal |
+| $ } stmts } stmts ; id_tail init_opt ID | , |  | Match: , |
+| $ } stmts } stmts ; id_tail init_opt | ID |  | Match: ID |
+| $ } stmts } stmts ; id_tail | ; | init_opt → ε  | Expand non-terminal |
+| $ } stmts } stmts ; | ; | id_tail → ε  | Expand non-terminal |
+| $ } stmts } stmts | ; |  | Match: ; |
+| $ } stmts } stmts stmt | ID | stmts → stmt stmts  | Expand non-terminal |
+| $ } stmts } stmts expr_stmt | ID | stmt → expr_stmt  | Expand non-terminal |
+| $ } stmts } stmts expr_stmt_tail ID | ID | expr_stmt → ID expr_stmt_tail  | Expand non-terminal |
+| $ } stmts } stmts expr_stmt_tail | ID |  | Match: ID |
+| $ } stmts } stmts ; expr = | = | expr_stmt_tail → = expr ;  | Expand non-terminal |
+| $ } stmts } stmts ; expr | = |  | Match: = |
+| $ } stmts } stmts ; expr_tail term | ID | expr → term expr_tail  | Expand non-terminal |
+| $ } stmts } stmts ; expr_tail term_tail factor | ID | term → factor term_tail  | Expand non-terminal |
+| $ } stmts } stmts ; expr_tail term_tail ID | ID | factor → ID  | Expand non-terminal |
+| $ } stmts } stmts ; expr_tail term_tail | ID |  | Match: ID |
+| $ } stmts } stmts ; expr_tail term_tail factor mul_op | * | term_tail → mul_op factor term_tail  | Expand non-terminal |
+| $ } stmts } stmts ; expr_tail term_tail factor * | * | mul_op → *  | Expand non-terminal |
+| $ } stmts } stmts ; expr_tail term_tail factor | * |  | Match: * |
+| $ } stmts } stmts ; expr_tail term_tail CONST | CONST | factor → CONST  | Expand non-terminal |
+| $ } stmts } stmts ; expr_tail term_tail | CONST |  | Match: CONST |
+| $ } stmts } stmts ; expr_tail | ; | term_tail → ε  | Expand non-terminal |
+| $ } stmts } stmts ; | ; | expr_tail → ε  | Expand non-terminal |
+| $ } stmts } stmts | ; |  | Match: ; |
+| $ } stmts } stmts stmt | ID | stmts → stmt stmts  | Expand non-terminal |
+| $ } stmts } stmts expr_stmt | ID | stmt → expr_stmt  | Expand non-terminal |
+| $ } stmts } stmts expr_stmt_tail ID | ID | expr_stmt → ID expr_stmt_tail  | Expand non-terminal |
+| $ } stmts } stmts expr_stmt_tail | ID |  | Match: ID |
+| $ } stmts } stmts ; expr = | = | expr_stmt_tail → = expr ;  | Expand non-terminal |
+| $ } stmts } stmts ; expr | = |  | Match: = |
+| $ } stmts } stmts ; expr_tail term | ID | expr → term expr_tail  | Expand non-terminal |
+| $ } stmts } stmts ; expr_tail term_tail factor | ID | term → factor term_tail  | Expand non-terminal |
+| $ } stmts } stmts ; expr_tail term_tail ID | ID | factor → ID  | Expand non-terminal |
+| $ } stmts } stmts ; expr_tail term_tail | ID |  | Match: ID |
+| $ } stmts } stmts ; expr_tail | + | term_tail → ε  | Expand non-terminal |
+| $ } stmts } stmts ; expr_tail term add_op | + | expr_tail → add_op term expr_tail  | Expand non-terminal |
+| $ } stmts } stmts ; expr_tail term + | + | add_op → +  | Expand non-terminal |
+| $ } stmts } stmts ; expr_tail term | + |  | Match: + |
+| $ } stmts } stmts ; expr_tail term_tail factor | CONST | term → factor term_tail  | Expand non-terminal |
+| $ } stmts } stmts ; expr_tail term_tail CONST | CONST | factor → CONST  | Expand non-terminal |
+| $ } stmts } stmts ; expr_tail term_tail | CONST |  | Match: CONST |
+| $ } stmts } stmts ; expr_tail | ; | term_tail → ε  | Expand non-terminal |
+| $ } stmts } stmts ; | ; | expr_tail → ε  | Expand non-terminal |
+| $ } stmts } stmts | ; |  | Match: ; |
+| $ } stmts } stmts stmt | ID | stmts → stmt stmts  | Expand non-terminal |
+| $ } stmts } stmts expr_stmt | ID | stmt → expr_stmt  | Expand non-terminal |
+| $ } stmts } stmts expr_stmt_tail ID | ID | expr_stmt → ID expr_stmt_tail  | Expand non-terminal |
+| $ } stmts } stmts expr_stmt_tail | ID |  | Match: ID |
+| $ } stmts } stmts ; ++ | ++ | expr_stmt_tail → ++ ;  | Expand non-terminal |
+| $ } stmts } stmts ; | ++ |  | Match: ++ |
+| $ } stmts } stmts | ; |  | Match: ; |
+| $ } stmts } | } | stmts → ε  | Expand non-terminal |
+| $ } stmts | } |  | Match: } |
+| $ } | } | stmts → ε  | Expand non-terminal |
+| $ | } |  | Match: } |
+| $ | $ |  | Accepted |

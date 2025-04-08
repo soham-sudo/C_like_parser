@@ -37,11 +37,15 @@ private:
     std::ofstream parseTableFile;
     std::ofstream parsingStagesFile;
     
+    // State tracking
+    bool isInDeclaration;  // Track if we're currently processing a declaration
+    
     // Helper methods
     void initParseTable();
     void addToParseTable(const std::string& nonTerminal, const std::string& terminal, int productionIndex);
     bool isNonTerminal(const std::string& symbol);
     void panic();  // Error recovery
+    void handleIdentifier(const Token& token);  // Handle identifier tokens based on context
     
     // Function to write parsing stages to file
     void writeParsingStage(const std::string& stackContent, const std::string& input, 

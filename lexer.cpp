@@ -177,6 +177,8 @@ void LexicalAnalyzer::tokenizeString(const std::string& input) {
     column = 1;
     tokenStream.clear();
     
+    bool hasLexicalErrors = false;
+    
     while (position < inputBuffer.length()) {
         skipWhitespaceAndComments();
         if (position >= inputBuffer.length()) break;
@@ -187,11 +189,17 @@ void LexicalAnalyzer::tokenizeString(const std::string& input) {
         // If error token, report it
         if (token.type == TokenType::ERROR && errorHandler) {
             errorHandler->lexicalError("Invalid token: '" + token.lexeme + "'", token.line, token.column);
+            hasLexicalErrors = true;
         }
     }
     
     // Add EOF token
     tokenStream.push_back(Token(TokenType::END_OF_FILE, "", line, column));
+    
+    // Only report lexical errors if there were actual lexical errors
+    if (hasLexicalErrors && errorHandler) {
+        std::cerr << "Lexical errors detected!" << std::endl;
+    }
 }
 
 // Skip whitespace and comments
@@ -250,82 +258,32 @@ void LexicalAnalyzer::skipWhitespaceAndComments() {
 
 // Find the next token
 Token LexicalAnalyzer::findNextToken() {
-    auto [matched, token] = matchTokenAtPosition();
-    
-    if (matched) {
-        // If token is an identifier and symbol table exists, add to symbol table
-        if (token.type == TokenType::IDENTIFIER && symbolTable) {
-            // Check if this is a declaration (handled by parser, not here)
-            // For now, just note that we saw this identifier
-            if (!symbolTable->exists(token.lexeme)) {
-                // For variables that aren't declared yet, we'll let the parser handle them
-                // This is just for reference tracking
-            }
-        }
-        return token;
-    } else {
-        // No match found, return error token and advance one character
-        std::string errorChar = inputBuffer.substr(position, 1);
-        std::string errorMsg = "Invalid character: '" + errorChar + "'";
-        
-        // Check for common lexical errors
-        if (errorChar == "\n" || errorChar == "\r") {
-            // Look back to check for missing semicolon
-            size_t lastPos = position;
-            while (lastPos > 0 && (inputBuffer[lastPos-1] == ' ' || inputBuffer[lastPos-1] == '\t')) {
-                lastPos--;
-            }
-            
-            if (lastPos > 0 && inputBuffer[lastPos-1] != ';' && inputBuffer[lastPos-1] != '{' && 
-                inputBuffer[lastPos-1] != '}' && inputBuffer[lastPos-1] != '\n' && inputBuffer[lastPos-1] != '\r') {
-                errorMsg = "Missing semicolon";
-                if (errorHandler) {
-                    errorHandler->lexicalError(errorMsg, line, column);
-                }
-            }
-        }
-        
-        Token errorToken(TokenType::ERROR, errorChar, line, column);
-        updatePosition(1);
-        return errorToken;
-    }
-}
-
-// Try to match a token at the current position
-std::pair<bool, Token> LexicalAnalyzer::matchTokenAtPosition() {
-    if (position >= inputBuffer.length()) {
-        return {false, Token()};
-    }
-    
     std::string remaining = inputBuffer.substr(position);
-    std::smatch match;
     
-    // Try each pattern in order
-    for (const auto& tokenPattern : patterns) {
-        if (std::regex_search(remaining, match, tokenPattern.pattern, 
-                             std::regex_constants::match_continuous)) {
+    // Try to match each pattern
+    for (const auto& pattern : patterns) {
+        std::smatch match;
+        if (std::regex_search(remaining, match, std::regex(pattern.pattern), 
+                            std::regex_constants::match_continuous)) {
             std::string matched = match.str();
-            Token token(tokenPattern.type, matched, line, column);
-            updatePosition(matched.length());
-            return {true, token};
+            
+            // Create token
+            Token token(pattern.type, matched, line, column);
+            
+            // Update position and column
+            position += matched.length();
+            column += matched.length();
+            
+            return token;
         }
     }
     
-    return {false, Token()};
-}
-
-// Update position and line/column tracking
-void LexicalAnalyzer::updatePosition(size_t length) {
-    // Update column for all characters, and line for newlines
-    for (size_t i = 0; i < length && position + i < inputBuffer.length(); ++i) {
-        if (inputBuffer[position + i] == '\n') {
-            line++;
-            column = 1;
-        } else {
-            column++;
-        }
-    }
-    position += length;
+    // If no pattern matches, return error token
+    std::string errorChar = remaining.substr(0, 1);
+    Token errorToken(TokenType::ERROR, errorChar, line, column);
+    position++;
+    column++;
+    return errorToken;
 }
 
 // Get the next token from the stream
