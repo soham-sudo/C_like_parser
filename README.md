@@ -41,25 +41,25 @@ The program can be run in two ways:
 ### Screenshots
 
 1. **Lexical Analysis Output**
-   ![Lexical Analysis](assets/lexical_analysis.png)
+   ![Lexical Analysis](assets/lexical_analysis_output.png)
    *Token stream and detailed token information*
 
 2. **Parse Table Generation**
-   ![Parse Table](assets/parse_table.png)
+   ![Parse Table](assets/parse_table_generation.png)
    *LL(1) parse table showing production rules*
 
 3. **Symbol Table**
-   ![Symbol Table](assets/symbol_table.png)
+   ![Symbol Table](assets/symbol_table_output.png)
    *Variable declarations and their attributes*
 
 4. **Error Reporting**
-   ![Error Report](assets/error_report.png)
+   ![Error Report](assets/error_reporting.png)
    *Detailed error messages with line and column information*
 
 ### Video Demonstrations
 
 1. **Full Compilation Process**
-   [![Compilation Process](assets/compilation_thumbnail.png)](assets/compilation_demo.mp4)
+   [![Compilation Process](assets/compilation_process_thumbnail.png)](assets/compilation_process_demo.mp4)
    *Complete demonstration of the compiler pipeline*
 
 2. **Error Handling**
@@ -116,7 +116,6 @@ The parser includes panic mode error recovery to continue after errors.
 - `error_handler.h/cpp`: Error reporting and logging
 - `grammar.h/cpp`: Grammar definition and FIRST/FOLLOW set computation
 - `parser.h/cpp`: LL(1) parser implementation
-<<<<<<< HEAD
 - `main.cpp`: Driver program
 
 ## Documentation
@@ -139,7 +138,4 @@ The implemented language supports:
 - Assignment statements
 - Relational operators (< and >)
 
-See `language_syntax.md` for detailed examples. 
-=======
-- `main.cpp`: Driver program 
->>>>>>> adfd20dafa40729dc49861fd8ec31e97ce4acc87
+See `language_syntax.md` for detailed examples.
