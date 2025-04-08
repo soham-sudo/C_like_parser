@@ -38,28 +38,10 @@ The program can be run in two ways:
 
 ## Visual Demonstrations
 
-### Screenshots
-
-1. **Lexical Analysis Output**
-   ![Lexical Analysis](assets/lexical_analysis_output.png)
-   *Token stream and detailed token information*
-
-2. **Parse Table Generation**
-   ![Parse Table](assets/parse_table_generation.png)
-   *LL(1) parse table showing production rules*
-
-3. **Symbol Table**
-   ![Symbol Table](assets/symbol_table_output.png)
-   *Variable declarations and their attributes*
-
-4. **Error Reporting**
-   ![Error Report](assets/error_reporting.png)
-   *Detailed error messages with line and column information*
-
 ### Video Demonstrations
 
 1. **Full Compilation Process**
-   [![Compilation Process](assets/compilation_process_thumbnail.png)](assets/compilation_process_demo.mp4)
+   [![Compilation Process](assets/compilation_process_thumbnail.png)](assets/sample_test2 run.mp4)
    *Complete demonstration of the compiler pipeline*
 
 2. **Error Handling**
